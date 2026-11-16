@@ -26,24 +26,14 @@ npm start
 
 ## Activer les comptes et la synchronisation
 
-1. Créer un projet Supabase.
-2. Dans Supabase > SQL Editor, exécuter le fichier `docs/SUPABASE.sql`.
-3. Dans Supabase > Authentication > URL Configuration, renseigner l'URL de ton site GitHub Pages dans Site URL et Redirect URLs.
-4. Copier l'URL du projet et la clé `anon` / `publishable` depuis Project Settings > API.
-5. Les coller dans `src/public-config.js` :
+Le projet Supabase `la moula` est déjà configuré dans `src/public-config.js` avec son URL et sa clé publique. L'URL doit être la racine du projet, sans `/rest/v1/`.
 
-```js
-window.MOULA_PUBLIC_CONFIG = {
-  supabaseUrl: 'https://TON-PROJET.supabase.co',
-  supabaseAnonKey: 'sb_publishable_...'
-};
-```
+1. Dans Supabase > SQL Editor, exécuter `docs/SUPABASE.sql` si nécessaire.
+2. Dans Authentication > URL Configuration, ajouter l'URL GitHub Pages réelle dans Site URL et Redirect URLs.
+3. Vérifier que le fournisseur Email est activé dans Authentication > Providers.
+4. Publier les fichiers sur GitHub. Les utilisateurs pourront ensuite créer leur compte depuis l'application.
 
-6. Commit et push. Les visiteurs pourront créer un compte depuis l'application.
-
-**Sécurité :** ne jamais utiliser la clé `service_role` ou une clé secrète dans le code. La clé publishable/anon est publique ; les politiques RLS du SQL sont indispensables. Chaque ligne est attachée à `auth.users.id` et un utilisateur ne peut lire/écrire que sa propre ligne.
-
-Les comptes Supabase peuvent demander une confirmation par email selon les réglages Auth du projet. Pour les tests, désactiver la confirmation email est possible dans Supabase Auth, mais il est préférable de la conserver en production.
+Voir `docs/SUPABASE.md` pour le guide détaillé. Ne jamais placer de clé `secret_...` ou `service_role` dans l'application : seule la clé `sb_publishable` est destinée au client.
 
 ## Publier la version iPhone / web sur GitHub Pages
 
